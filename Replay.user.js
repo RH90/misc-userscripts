@@ -1,13 +1,13 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      18.0
+// @version      18.1
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
 // @grant        none
 // @run-at document-end
-// @downloadURL  https://api.onedrive.com/v1.0/shares/u!aHR0cHM6Ly8xZHJ2Lm1zL3UvcyFBbHc4RmYwVmxabHFndTlyb2pneGcyakVmV1ZQbHc/root/content
+// @downloadURL  https://github.com/RH90/misc-userscripts/raw/master/Replay.user.js
 // @noframes
 // ==/UserScript==
 var yt;
@@ -250,31 +250,34 @@ function Init() {
 			sliderStop.value = yt.getCurrentTime();
 			updateTimeText();
 		};
+		getReplayStatus(linkTest);
 
-		if (localStorage.ReplayLastLinks) {
-			var arr = JSON.parse(localStorage.ReplayLastLinks);
-			console.log("localStorage.ReplayLastLinks");
-			console.log(arr);
-			for (let index = 0; index < arr.length; index++) {
-				const element = arr[index];
-				if (element == linkTest || element.id == linkTest) {
-					replayCheckChange(true);
-					saveReplayLinks();
-					if (element.start || element.stop) {
-						if (element.start != "0") {
-							yt.seekTo(sliderStart.value);
-						}
-						sliderStart.value = element.start;
-						sliderStop.value = element.stop;
-					}
-					break;
-				}
-			}
-		}
 		liveStreamStart();
 		clearInterval(init);
 		setInterval(loop, 200);
 		setInterval(loopSlow, 2000);
+	}
+}
+function getReplayStatus(videoID) {
+	if (localStorage.ReplayLastLinks) {
+		var arr = JSON.parse(localStorage.ReplayLastLinks);
+		console.log("localStorage.ReplayLastLinks");
+		console.log(arr);
+		for (let index = 0; index < arr.length; index++) {
+			const element = arr[index];
+			if (element == videoID || element.id == videoID) {
+				replayCheckChange(true);
+				saveReplayLinks();
+				if (element.start || element.stop) {
+					if (element.start != "0") {
+						yt.seekTo(sliderStart.value);
+					}
+					sliderStart.value = element.start;
+					sliderStop.value = element.stop;
+				}
+				break;
+			}
+		}
 	}
 }
 
@@ -353,8 +356,7 @@ function loop() {
 		linkTest = yt.getVideoData().video_id;
 		updateTimeText();
 		if (replayCheck && window.location.href.includes("&list=")) {
-			replayCheck = false;
-			saveReplayLinks();
+			getReplayStatus(linkTest);
 		} else if (!window.location.href.includes("&list=")) {
 			replayCheckChange(false);
 		}
