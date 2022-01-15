@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      18.8
+// @version      19.0
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -325,9 +325,9 @@ function sliderElement() {
 }
 
 function loopSlow() {
-	// if (replayCheck === true) {
-	// 	saveReplayLinks();
-	// }
+	if (replayCheck === true) {
+		saveReplayLinks();
+	}
 }
 
 function loop() {
@@ -401,6 +401,8 @@ function replayCheckChange(value) {
 	}
 
 	replayCheck = value;
+	console.log("replayCheckChange");
+	console.log(value);
 }
 function saveReplayLinks() {
 	var arr = [];
