@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      19.1
+// @version      19.3
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -263,6 +263,7 @@ function getReplayStatus(videoID) {
 		var arr = JSON.parse(localStorage.ReplayLastLinks);
 		console.log("localStorage.ReplayLastLinks");
 		console.log(arr);
+		console.log(videoID);
 		for (let index = 0; index < arr.length; index++) {
 			const element = arr[index];
 			if (element == videoID || element.id == videoID) {
