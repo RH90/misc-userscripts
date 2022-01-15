@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      19.3
+// @version      19.4
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -438,6 +438,7 @@ function saveReplayLinks() {
 		object.id = linkTest;
 		object.start = sliderStart.value;
 		object.stop = sliderStop.value;
+		console.log(object);
 		arr.push(object);
 
 		while (arr.length > 25) {
