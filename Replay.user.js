@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      19.6
+// @version      19.9
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -259,6 +259,7 @@ function Init() {
 	}
 }
 function getReplayStatus(videoID) {
+	var res = false;
 	if (localStorage.ReplayLastLinks) {
 		var arr = JSON.parse(localStorage.ReplayLastLinks);
 		console.log("localStorage.ReplayLastLinks");
@@ -280,10 +281,12 @@ function getReplayStatus(videoID) {
 				}
 				replayCheckChange(true);
 				saveReplayLinks();
+				res = true;
 				break;
 			}
 		}
 	}
+	return res;
 }
 
 function sliderElement() {
@@ -350,12 +353,6 @@ function loop() {
 		sliderStart.max = max;
 		sliderStop.max = max;
 
-		sliderStart.value = 0;
-		sliderStop.value = max - 1;
-		console.log(sliderStop.value);
-		console.log(sliderStop.max);
-		console.log(yt.getDuration());
-
 		buttonMP3.style.color = "white";
 		buttonMP3.disabled = false;
 		linkTest = yt.getVideoData().video_id;
@@ -363,12 +360,17 @@ function loop() {
 		if (!window.location.href.includes("&list=")) {
 			replayCheckChange(false);
 		}
-		getReplayStatus(linkTest);
+		if (!getReplayStatus(linkTest)) {
+			sliderStart.value = 0;
+			sliderStop.value = max - 1;
+		}
 
 		liveStreamReset();
-	}
 
-	if (replayCheck === true) {
+		console.log(sliderStop.value);
+		console.log(sliderStop.max);
+		console.log(yt.getDuration());
+	} else if (replayCheck === true) {
 		if (
 			parseInt(sliderStart.value) >= parseInt(sliderStop.value) ||
 			sliderStop.value === 0 ||
