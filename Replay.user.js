@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      18.4
+// @version      18.6
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -268,7 +268,7 @@ function getReplayStatus(videoID) {
 			if (element == videoID || element.id == videoID) {
 				if (element.start || element.stop) {
 					if (element.start != "0") {
-						yt.seekTo(sliderStart.value);
+						yt.seekTo(element.start);
 					}
 					sliderStart.value = element.start;
 					sliderStop.value = element.stop;
