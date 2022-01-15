@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      19.9
+// @version      19.99
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
