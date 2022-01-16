@@ -1,13 +1,13 @@
 // ==UserScript==
-// @name		Replay
-// @namespace	http://tampermonkey.net/
-// @version		20.4
-// @description	try to take over the world!
-// @author		You
-// @match		*://www.youtube.com/*
-// @grant		none
-// @run-at		document-end
-// @downloadURL	https://github.com/RH90/misc-userscripts/blob/master/Replay.user.js?raw=true
+// @name         Replay
+// @namespace    http://tampermonkey.net/
+// @version      20.5
+// @description  try to take over the world!
+// @author       You
+// @match        *://www.youtube.com/*
+// @grant        none
+// @run-at       document-end
+// @downloadURL  https://github.com/RH90/misc-userscripts/blob/master/Replay.user.js?raw=true
 // @noframes
 // ==/UserScript==
 var yt;
