@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      20.6
+// @version      20.8
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -361,7 +361,7 @@ function loop() {
 		buttonMP3.style.color = "white";
 		buttonMP3.disabled = false;
 		linkTest = yt.getVideoData().video_id;
-		updateTimeText();
+
 		if (!window.location.href.includes("&list=")) {
 			replayCheckChange(false);
 		}
@@ -375,6 +375,7 @@ function loop() {
 		console.log(sliderStop.value);
 		console.log(sliderStop.max);
 		console.log(yt.getDuration());
+		updateTimeText();
 	} else if (replayCheck === true) {
 		if (
 			parseInt(sliderStart.value) >= parseInt(sliderStop.value) ||
