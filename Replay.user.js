@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      20.8
+// @version      20.9
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -109,12 +109,18 @@ function Init() {
 				var title = document.querySelector("title").innerHTML;
 				title = title.replace(" - YouTube", "");
 
-				var max = parseInt(yt.getDuration());
+				var start = sliderStart.value;
+				var duration = sliderStop.value - start;
+				if (sliderStop.value >= sliderStop.max - 3) {
+					duration = sliderStop.max - start;
+				}
 				var videoId = ytNow.getVideoData().video_id;
 				if (title && max && videoId) {
 					downloadLink = true;
 					fetch(
-						`http://127.0.0.1:8088/V/?link=${videoId}&title=${encodeURIComponent(title)}&seconds=${max}`,
+						`http://127.0.0.1:8088/V/?link=${videoId}&title=${encodeURIComponent(
+							title
+						)}&start=${start}&duration=${duration}`,
 						{ method: "GET", cors: "no-cors" }
 					);
 				}
