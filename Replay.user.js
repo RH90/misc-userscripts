@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Replay
 // @namespace    http://tampermonkey.net/
-// @version      20.9
+// @version      21.1
 // @description  try to take over the world!
 // @author       You
 // @match        *://www.youtube.com/*
@@ -29,6 +29,8 @@ var buttonChat;
 var infoPanel;
 var divRepeat;
 var init = setInterval(Init, 500);
+
+const maxSize = 50;
 
 var replayCheck = false;
 
@@ -457,7 +459,7 @@ function saveReplayLinks() {
 		console.log(object);
 		arr.push(object);
 
-		while (arr.length > 25) {
+		while (arr.length > maxSize) {
 			arr.shift();
 		}
 	}
